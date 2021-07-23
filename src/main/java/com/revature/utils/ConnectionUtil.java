@@ -16,19 +16,19 @@ public class ConnectionUtil {
 			e.printStackTrace();
 		}
 		
-		String url = "jdbc:postgresql://bankdatabase.cnl6gksjpkku.us-east-2.rds.amazonaws.com:5432/demos";
+		String url = "jdbc:postgresql://bankdatabase.cnl6gksjpkku.us-east-2.rds.amazonaws.com:5432/project0";
 		String username = "postgres"; //It is possible to use env variables to hide this information
 		String password = "password"; // you would access them with System.getenv("var-name");
 		
 		return DriverManager.getConnection(url, username, password);
 	}
 	
-//	public static void main(String[] args) {
-//		try(Connection conn = ConnectionUtil.getConnection()){
-//			System.out.println("Connection Successful!");
-//		}catch(SQLException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	public static void main(String[] args) {
+		try(Connection conn = ConnectionUtil.getConnection()){
+			System.out.println("Connection Successful!");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
