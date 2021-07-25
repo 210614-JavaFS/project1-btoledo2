@@ -13,10 +13,9 @@ public class Users {
 		super();
 	}
 
-	public Users(int userId, String userName, String password, String firstName, String lastName, String emailString,
+	public Users( String userName, String password, String firstName, String lastName, String emailString,
 			UserRole userRole) {
 		super();
-		this.userId = userId;
 		this.userName = userName;
 		this.password = password;
 		this.firstName = firstName;
