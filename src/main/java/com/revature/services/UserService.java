@@ -12,4 +12,9 @@ public class UserService {
 	public List<Users> allUsers(){
 		return usersDAO.findAll();
 	}
+	
+	public Users findUser(String userName) {
+		return usersDAO.findUserByUsername(userName);
+	}
 }
+;

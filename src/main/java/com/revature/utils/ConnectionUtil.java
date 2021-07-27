@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class ConnectionUtil {
 	
 	public static Connection getConnection() throws SQLException {
@@ -23,12 +25,19 @@ public class ConnectionUtil {
 		return DriverManager.getConnection(url, username, password);
 	}
 	
-	public static void main(String[] args) {
-		try(Connection conn = ConnectionUtil.getConnection()){
-			System.out.println("Connection Successful!");
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		String password ="password";
+//		int workload = 12;
+//		String salt = BCrypt.gensalt(workload);
+//		String encryptpw =	BCrypt.hashpw(password, salt);
+//		
+//		System.out.println(encryptpw);
+//		boolean passwordMatch = false;
+//		passwordMatch = BCrypt.checkpw(password, "$2a$12$K3X2VlI5QT48qJtqWXM6uOLNpSA9DzX3VJxWDICmZYtFYQItqm12W");
+//		if(passwordMatch) {
+//			System.out.println("True");
+//		}else {System.out.println("False");}
+//		
+//	}
 
 }

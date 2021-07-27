@@ -18,14 +18,14 @@ public class FrontControllerServlet extends HttpServlet {
 
 		response.setStatus(404); // Overrides Tomcat's 200 default for malformed requests.
 
-		final String URL = request.getRequestURI().replace("/project0/", ""); // strips out base URL info.
+		final String URL = request.getRequestURI().replace("/project1/", ""); // strips out base URL info.
 
 		System.out.println(URL);
 
 		String[] UrlSections = URL.split("/");
 
 		switch (UrlSections[0]) {
-		case "avenger":
+		case "userlogin":
 			break;
 			
 		}

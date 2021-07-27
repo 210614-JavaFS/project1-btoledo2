@@ -29,9 +29,9 @@ public class UsersDAOImpl implements UsersDAO {
 			//ResultSets have a cursor similarly to Scanners or other I/O classes. 
 			while(result.next()) {
 				Users users = new Users();
-				users.setUserId(result.getInt("ERS_USER_ID"));
+				users.setUserId(result.getInt("ERS_USERS_ID"));
 				users.setUserName(result.getString("ERS_USERNAME"));
-				users.setPassword(result.getString("USER_PASSWORD"));
+				users.setPassword(result.getString("ERS_PASSWORD"));
 				users.setFirstName(result.getString("USER_FIRST_NAME"));
 				users.setLastName(result.getString("USER_LAST_NAME"));
 				users.setEmailString(result.getString("USER_EMAIL"));
@@ -54,16 +54,46 @@ public class UsersDAOImpl implements UsersDAO {
 	@Override
 	public Users findUser(int id) {
 		try(Connection conn = ConnectionUtil.getConnection()){
-			String sql = "SELECT * From ERS_USER  WHERE ERS_USER_ID = ?";
+			String sql = "SELECT * From ERS_USERS  WHERE ERS_USER_ID = ?";
 	
 			PreparedStatement statement = conn.prepareStatement(sql);		
 			statement.setInt(1, id);
 			ResultSet result = statement.executeQuery();
 			Users users = new Users();
 			while(result.next()) {
-				users.setUserId(result.getInt("ERS_USER_ID"));
+				users.setUserId(result.getInt("ERS_USERS_ID"));
 				users.setUserName(result.getString("ERS_USERNAME"));
-				users.setPassword(result.getString("USER_PASSWORD"));
+				users.setPassword(result.getString("ERS_PASSWORD"));
+				users.setFirstName(result.getString("USER_FIRST_NAME"));
+				users.setLastName(result.getString("USER_LAST_NAME"));
+				users.setEmailString(result.getString("USER_EMAIL"));
+				int roleId = result.getInt("USER_ROLE_ID");
+				if(roleId != 0){
+					UserRole userRole = userRoleDAO.findRole(roleId);
+					users.setUserRole(userRole);
+				}
+				
+			}
+			return users;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public Users findUserByUsername(String userName) {
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "SELECT * From ERS_USERS  WHERE ERS_USERNAME = ?";
+	
+			PreparedStatement statement = conn.prepareStatement(sql);		
+			statement.setString(1, userName);
+			ResultSet result = statement.executeQuery();
+			Users users = new Users();
+			while(result.next()) {
+				users.setUserId(result.getInt("ERS_USERS_ID"));
+				users.setUserName(result.getString("ERS_USERNAME"));
+				users.setPassword(result.getString("ERS_PASSWORD"));
 				users.setFirstName(result.getString("USER_FIRST_NAME"));
 				users.setLastName(result.getString("USER_LAST_NAME"));
 				users.setEmailString(result.getString("USER_EMAIL"));

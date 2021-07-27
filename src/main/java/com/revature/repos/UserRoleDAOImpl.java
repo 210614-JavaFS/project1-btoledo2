@@ -13,7 +13,7 @@ public class UserRoleDAOImpl implements UserRoleDAO {
 	@Override
 	public UserRole findRole(int id) {
 		try(Connection conn = ConnectionUtil.getConnection()){
-			String sql = "SELECT * From ERS_USER_ROLE  WHERE ERS_USER_ROLE_ID = ?";
+			String sql = "SELECT * From ERS_USERS_ROLE  WHERE ERS_USER_ROLE_ID = ?";
 	
 			PreparedStatement statement = conn.prepareStatement(sql);		
 			statement.setInt(1, id);
