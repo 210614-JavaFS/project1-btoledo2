@@ -168,6 +168,57 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 		return false;
 	}
 
+	@Override
+	public List<Reimbursement> findby(Users user) {
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "SELECT * FROM ERS_REIMBURSEMENT WHERE REIMB_AUTHOR = " + user.getUserId();
+			
+			Statement statement = conn.createStatement();
+			
+			ResultSet result = statement.executeQuery(sql);
+			
+			List<Reimbursement> list = new ArrayList<>();
+			//ResultSets have a cursor similarly to Scanners or other I/O classes. 
+			while(result.next()) {
+				Reimbursement reimbursement = new Reimbursement(); 
+				reimbursement.setReimbId(result.getInt("REIMB_ID"));
+				reimbursement.setAmount(result.getDouble("REIMB_AMOUNT"));
+				reimbursement.setSubmitted(result.getTimestamp("REIMB_SUBMITTED"));
+				reimbursement.setResolved(result.getTimestamp("REIMB_RESOLVED"));
+				reimbursement.setDescription(result.getString("REIMB_DESCRIPTION"));
+				int author = result.getInt("REIMB_AUTHOR");
+				String temp = result.getString("REIMB_RESOLVER");
+				int status = result.getInt("REIMB_STATUS_ID");
+				int type = result.getInt("REIMB_TYPE_ID");
+				if(author != 0) {
+					Users users = usersDAO.findUser(author);
+					reimbursement.setAuthor(users);
+				}
+				if(status != 0) {
+					ReimbursementStatus reimbursementStatus = reimbursementStatusDAO.findStatus(status);
+					reimbursement.setStatus(reimbursementStatus);
+				}
+				if(type != 0) {
+					ReimbursementType reimbursementType = reimbursementTypeDAO.findType(type);
+					reimbursement.setType(reimbursementType);
+				}
+				if(temp == null) {
+					reimbursement.setResolver(null);
+				}else {
+					int resolver = Integer.parseInt(temp);
+					Users users2 = usersDAO.findUser(resolver);
+					reimbursement.setResolver(users2);
+					
+				}	
+				list.add(reimbursement);
+			}			
+			return list;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
+	
 
 }

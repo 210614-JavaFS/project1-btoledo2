@@ -21,7 +21,7 @@ public class ReimbursementTypeDAOImpl implements ReimbursementTypeDAO {
 			ReimbursementType type = new ReimbursementType();
 			while(result.next()) {
 				type.setTypeId(result.getInt("REIMB_TYPE_ID"));
-				type.setType(result.getString("REIM_TYPE"));		
+				type.setType(result.getString("REIMB_TYPE"));		
 			}
 			return type;
 		}catch(SQLException e) {

@@ -3,6 +3,7 @@ package com.revature.services;
 import java.util.List;
 
 import com.revature.models.Reimbursement;
+import com.revature.models.Users;
 import com.revature.repos.ReimbursementDAO;
 import com.revature.repos.ReimbursementDAOImpl;
 
@@ -13,6 +14,10 @@ public class ReimbursementService {
 		return reimbursementDAO.findAll();
 	}
 	
+	public List<Reimbursement> userReim(Users user){
+		return reimbursementDAO.findby(user);
+	}
+	
 	public boolean addReimbursement(Reimbursement reim) {
 		return reimbursementDAO.createReimbursement(reim);
 	}
@@ -20,5 +25,7 @@ public class ReimbursementService {
 	public boolean updateStatus(int reimId, int resolverId, int newStatus) {
 		return reimbursementDAO.updateReimbursement(reimId, resolverId, newStatus);
 	}
+	
+	
 	
 }

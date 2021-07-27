@@ -54,7 +54,7 @@ public class UsersDAOImpl implements UsersDAO {
 	@Override
 	public Users findUser(int id) {
 		try(Connection conn = ConnectionUtil.getConnection()){
-			String sql = "SELECT * From ERS_USERS  WHERE ERS_USER_ID = ?";
+			String sql = "SELECT * From ERS_USERS  WHERE ERS_USERS_ID = ?";
 	
 			PreparedStatement statement = conn.prepareStatement(sql);		
 			statement.setInt(1, id);
