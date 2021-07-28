@@ -74,7 +74,6 @@ public class SuccessServlet extends HttpServlet {
 				+ "      </tr>\r\n"
 				+ "    </thead>\r\n"
 				+ "    <tbody id=\"reimbursements\">\r\n"
-			//	+     	fillTable(user)
 				+ "    </tbody>\r\n"
 				+ "\r\n"
 				+ "<body>\r\n"
@@ -85,25 +84,7 @@ public class SuccessServlet extends HttpServlet {
 	}
 	
 	
-	
-	private String fillTable(Users user) {
-		List<Reimbursement> requests = reimbursementService.userReim(user);
-		StringBuilder bodyContent = new StringBuilder();
-		
-		for(Reimbursement r : requests) {
-			bodyContent.append("<tr>");
-				bodyContent.append("<td>" + r.getAmount() + "</td>");
-				bodyContent.append("<td>" + r.getSubmitted() + "</td>");
-				bodyContent.append("<td>" + r.getResolved() + "</td>");
-				bodyContent.append("<td>" + r.getDescription() + "</td>");
-				bodyContent.append("<td>" + r.getResolver().getEmailString() + "</td>");
-				bodyContent.append("<td>" + r.getStatus().getStatus() + "</td>");
-				bodyContent.append("<td>" + r.getType().getType() + "</td>");
-			bodyContent.append("</tr>");
-		}
-		
-		return bodyContent.toString();
-	}
+
 	
 	
 	
