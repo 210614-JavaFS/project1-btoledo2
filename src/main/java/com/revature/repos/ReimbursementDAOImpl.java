@@ -133,7 +133,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 			statement.setString(2, reim.getDescription());
 			statement.setInt(3, reim.getAuthor().getUserId());
 			statement.setInt(4, 1);
-			statement.setInt(5, reim.getType().getTypeId());
+			statement.setInt(5, reim.getTypeString());
 			statement.execute();
 			
 			return true;

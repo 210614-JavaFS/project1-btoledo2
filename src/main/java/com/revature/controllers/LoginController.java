@@ -51,7 +51,6 @@ public class  LoginController {
 			stringBuilder.append(line);
 			line = reader.readLine();
 		}
-		System.out.println("Here");
 		String body = new String(stringBuilder);
 		Users userObjectInput = objectMapper.readValue(body, Users.class);
 		String inputUserName = userObjectInput.getUserName();
