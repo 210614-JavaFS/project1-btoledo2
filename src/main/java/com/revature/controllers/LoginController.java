@@ -57,7 +57,7 @@ public class  LoginController {
 		String inputPassword = userObjectInput.getPassword();
 		
 		Users retrievedUser = userService.findUser(inputUserName);
-		//String retrievedHash = retrievedUser
+		//String retrievedHash = retrieved
 		
 		//boolean password_verified = false;
 		//password_verified = BCrypt.checkpw(inputPassword, retrievedHash);

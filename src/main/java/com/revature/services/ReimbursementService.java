@@ -17,6 +17,9 @@ public class ReimbursementService {
 	public List<Reimbursement> userReim(Users user){
 		return reimbursementDAO.findby(user);
 	}
+	public List<Reimbursement> findTickets(int id){
+		return reimbursementDAO.findById(id);
+	}
 	
 	public boolean addReimbursement(Reimbursement reim) {
 		return reimbursementDAO.createReimbursement(reim);
@@ -25,6 +28,8 @@ public class ReimbursementService {
 	public boolean updateStatus(int reimId, int resolverId, int newStatus) {
 		return reimbursementDAO.updateReimbursement(reimId, resolverId, newStatus);
 	}
+	
+	
 	
 	
 	

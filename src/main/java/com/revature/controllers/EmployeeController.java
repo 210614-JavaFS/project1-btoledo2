@@ -2,6 +2,8 @@ package com.revature.controllers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +41,21 @@ public class EmployeeController {
 			System.out.println("something went wrong");
 		}	
 		return false;
+		
+	}
+	
+	public void getTicketsById(HttpServletResponse response, String employeeID) throws IOException, ServletException{
+		int userId = Integer.parseInt(employeeID);
+		//System.out.println(userId);
+		List<Reimbursement> reimTickets = reimbService.findTickets(userId);
+		
+		String json = objectMapper.writeValueAsString(reimTickets);
+		System.out.println(json);
+		PrintWriter printWriter = response.getWriter();
+		
+		printWriter.print(json);
+		
+		response.setStatus(200);
 		
 	}
 	

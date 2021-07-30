@@ -80,15 +80,23 @@ public class FrontControllerServlet extends HttpServlet {
 					System.out.println("Check Final set status: " + response.getStatus());
 					System.out.println("User Servlet Login is successful");
 									
-				} else {
-					System.out.println("User Login is NOT successful");
-				}
+				} 
 				//System.out.println("Here");
 			}
 			
 			break;
 		case "viewForm":
-		
+			
+			if(SectionsEmployee.length == 2) {
+				System.out.println("Should be here");
+				if(request.getMethod().equals("GET")) {
+					employeeController.getTicketsById(response, SectionsEmployee[1].toLowerCase());
+					System.out.println("Sending Tickets to employee page");
+				}
+				
+			}
+			
+			
 			break;
 		
 		}

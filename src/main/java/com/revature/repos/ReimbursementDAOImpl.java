@@ -36,7 +36,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				Reimbursement reimbursement = new Reimbursement(); 
 				reimbursement.setReimbId(result.getInt("REIMB_ID"));
 				reimbursement.setAmount(result.getDouble("REIMB_AMOUNT"));
-				reimbursement.setSubmitted(result.getTimestamp("REIM_SUBMITTED"));
+				reimbursement.setSubmitted(result.getTimestamp("REIMB_SUBMITTED"));
 				reimbursement.setResolved(result.getTimestamp("REIMB_RESOLVED"));
 				reimbursement.setDescription(result.getString("REIMB_DESCRIPTION"));
 				int author = result.getInt("REIMB_AUTHOR");
@@ -60,7 +60,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				}else {
 					int resolver = Integer.parseInt(temp);
 					Users users2 = usersDAO.findUser(resolver);
-					reimbursement.setAuthor(users2);
+					reimbursement.setResolver(users2);
 					
 				}	
 				list.add(reimbursement);
@@ -73,28 +73,25 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 	}
 
 	@Override
-	public Reimbursement findById(int id) {
+	public List<Reimbursement>  findById(int id) {
 		try(Connection conn = ConnectionUtil.getConnection()){
-			String sql = "SELECT * From ERS_REIMBURSEMENT WHERE REIMB_ID= ?";
+			String sql = "SELECT * From ERS_REIMBURSEMENT WHERE REIMB_Author= ?";
 	
 			PreparedStatement statement = conn.prepareStatement(sql);		
 			statement.setInt(1, id);
 			ResultSet result = statement.executeQuery();
-			Reimbursement reimbursement = new Reimbursement(); 
+			
+			List<Reimbursement> list = new ArrayList<>();
 			while(result.next()) {
+				Reimbursement reimbursement = new Reimbursement(); 
 				reimbursement.setReimbId(result.getInt("REIMB_ID"));
 				reimbursement.setAmount(result.getDouble("REIMB_AMOUNT"));
-				reimbursement.setSubmitted(result.getTimestamp("REIM_SUBMITTED"));
+				reimbursement.setSubmitted(result.getTimestamp("REIMB_SUBMITTED"));
 				reimbursement.setResolved(result.getTimestamp("REIMB_RESOLVED"));
 				reimbursement.setDescription(result.getString("REIMB_DESCRIPTION"));
-				int author = result.getInt("REIMB_AUTHOR");
 				String temp = result.getString("REIMB_RESOLVER");
 				int status = result.getInt("REIMB_STATUS_ID");
 				int type = result.getInt("REIMB_TYPE_ID");
-				if(author != 0) {
-					Users users = usersDAO.findUser(author);
-					reimbursement.setAuthor(users);
-				}
 				if(status != 0) {
 					ReimbursementStatus reimbursementStatus = reimbursementStatusDAO.findStatus(status);
 					reimbursement.setStatus(reimbursementStatus);
@@ -108,13 +105,13 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				}else {
 					int resolver = Integer.parseInt(temp);
 					Users users2 = usersDAO.findUser(resolver);
-					reimbursement.setAuthor(users2);
+					reimbursement.setResolver(users2);
 					
 				}	
-			
+				list.add(reimbursement);
 			
 			}
-			return reimbursement;	
+			return list;	
 			}
 		catch(SQLException e) {
 			e.printStackTrace();
