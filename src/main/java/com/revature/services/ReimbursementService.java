@@ -29,7 +29,10 @@ public class ReimbursementService {
 		return reimbursementDAO.updateReimbursement(reimId, resolverId, newStatus);
 	}
 	
-	
+	public List<Reimbursement> findByStatus(int statusId){
+		return reimbursementDAO.findByStatus(statusId);
+	}
+
 	
 	
 	
