@@ -10,9 +10,11 @@ public interface ReimbursementDAO {
 	
 	public List<Reimbursement> findby(Users user);
 	
-	public Reimbursement findById(int id);
+	public List<Reimbursement> findById(int id);
 	public boolean createReimbursement(Reimbursement reim);
 	public boolean updateReimbursement(int reimId, int resolverId, int newStatus );
+
+	public List<Reimbursement> findByStatus(int statusId);
 	
 	
 	

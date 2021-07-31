@@ -13,7 +13,7 @@ public class Reimbursement {
 	private Users resolver;
 	private ReimbursementStatus status;
 	private ReimbursementType type;
-	
+	private int typeString;
 	public Reimbursement( double amount, Timestamp submitted, String description,
 			Users author, ReimbursementStatus status, ReimbursementType type) {
 		super();
@@ -24,7 +24,25 @@ public class Reimbursement {
 		this.status = status;
 		this.type = type;
 	}
+	public Reimbursement( double amount, String description,
+			Users author, int typeString) {
+		super();
+		this.amount = amount;
+		this.description = description;
+		this.author = author;
+		this.typeString = typeString;
+	}
+	
+	
+	
+	
 
+	public int getTypeString() {
+		return typeString;
+	}
+	public void setTypeString(int typeString) {
+		this.typeString = typeString;
+	}
 	public Reimbursement() {
 		super();
 	}
