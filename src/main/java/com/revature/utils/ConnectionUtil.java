@@ -30,10 +30,10 @@ public class ConnectionUtil {
 //		int workload = 12;
 //		String salt = BCrypt.gensalt(workload);
 //		String encryptpw =	BCrypt.hashpw(password, salt);
-//		
+//		System.out.println(encryptpw.length());
 //		System.out.println(encryptpw);
 //		boolean passwordMatch = false;
-//		passwordMatch = BCrypt.checkpw(password, "$2a$12$K3X2VlI5QT48qJtqWXM6uOLNpSA9DzX3VJxWDICmZYtFYQItqm12W");
+//		passwordMatch = BCrypt.checkpw(password, "$2a$12$OHgww9U9x8m5Jxly.kRkieEnjC4LzHDZqzu.CzQ/dXpnDDsiExzSq");
 //		if(passwordMatch) {
 //			System.out.println("True");
 //		}else {System.out.println("False");}

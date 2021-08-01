@@ -40,14 +40,9 @@ public class FrontControllerServlet extends HttpServlet {
 		String[] UrlSections = URL.split("/");
 		String[] SectionsEmployee = employeeURL.split("/");
 		String[] SectionsManager = managerURL.split("/");
-		// System.out.println(UrlSections[0]);
-		// System.out.println(SectionsEmployee[0]);
 		switch (UrlSections[0]) {
 		case "userLogin":
-			// System.out.println("Here");
-			// System.out.println(request.getMethod());
 			if (request.getMethod().equals("POST")) {
-				// System.out.println("Here");
 				if (loginController.validatLogin(request, response)) {
 					//log.info("Login Seccessful");
 					System.out.println("Check Final set status: " + response.getStatus());
@@ -60,15 +55,6 @@ public class FrontControllerServlet extends HttpServlet {
 			}
 			break;
 		}
-
-//		if (UrlSections.length > 1 && SectionsEmployee[0].equals("employee")) {
-//			if (session == null) {
-//				response.setStatus(404);
-//				System.out.println("Not login");
-//			}
-		//} else if (session != null) {
-			//response.setStatus(201);
-			// System.out.println(SectionsEmployee[0]);
 			switch (SectionsEmployee[0]) {
 			case "check":
 				
@@ -135,24 +121,10 @@ public class FrontControllerServlet extends HttpServlet {
 						managerController.getApproveOrDeny(response, SectionsManager[1], SectionsManager[2], SectionsManager[3]);
 						System.out.println("Ticket Approve or Deny");
 					}
-				}
-			
-			
+				}			
 			}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		}
-	
-	
-	
+		
 	//}
 
 	@Override
