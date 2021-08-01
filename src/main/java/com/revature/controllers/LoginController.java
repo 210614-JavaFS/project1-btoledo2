@@ -57,16 +57,16 @@ public class  LoginController {
 		String inputPassword = userObjectInput.getPassword();
 		
 		Users retrievedUser = userService.findUser(inputUserName);
-		//String retrievedHash = retrieved
+		String retrievedHash = retrievedUser.getPassword();
 		
-		//boolean password_verified = false;
-		//password_verified = BCrypt.checkpw(inputPassword, retrievedHash);
-		
+		boolean password_verified = false;
+		password_verified = BCrypt.checkpw(inputPassword, retrievedHash);
+		//inputPassword.equals(retrievedUser.getPassword())
 		if (retrievedUser.getUserName() == null) {
 			System.out.println("Error: Account not found...");
 			response.setStatus(404);
 			return false;
-		} else if (retrievedUser.getUserName().equals(inputUserName) && inputPassword.equals(retrievedUser.getPassword())) {
+		} else if (retrievedUser.getUserName().equals(inputUserName) && password_verified ) {
 			System.out.println("Login is successful!");
 			if(retrievedUser.getUserRole().getRoleID() == 1) {
 				response.setStatus(201);
