@@ -77,25 +77,37 @@ async function viewTickets(){
 function fillTable(data){
     let tbody = document.getElementById("reimTable");
     console.log(data);
+    let num = 0;
     tbody.innerHTML="";
     for(let ticket of data){
+        num = 0;
         let row = document.createElement("tr");
         for(let cell in ticket){
             let td = document.createElement("td");
             if(cell =='amount' && ticket[cell]){
                 td.innerText=ticket[cell];
+                row.appendChild(td);
             }else if(cell =='description' && ticket[cell]){
                 td.innerText=ticket[cell];
-            }else if(cell =='resolver' && ticket[cell]){
-                td.innerText=ticket[cell].userName;
+                row.appendChild(td);
+            }else if(num === 6){
+                if(cell =='resolver' && ticket[cell]){
+                    td.innerText=ticket[cell].userName;
+                    row.appendChild(td);
+                }else{
+                td.innerText="Waiting on Manager";
+                row.appendChild(td);
+                }
             }else if(cell =='status' && ticket[cell]){
                 td.innerText=ticket[cell].status;
+                row.appendChild(td);
             }else if(cell =='type' && ticket[cell]){
                 td.innerText=ticket[cell].type;
+                row.appendChild(td);
             }
-        row.appendChild(td);
+            num = num +1;
         }
-    tbody.appendChild(row);
+        tbody.appendChild(row);
     }
 
 }
