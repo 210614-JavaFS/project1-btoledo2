@@ -36,6 +36,7 @@ async function loginUser() {
 
     } else {
         console.log('User Login failed');
-        alert("Login failed!");
+        let paragraph =  document.getElementById('invalid');
+        paragraph.innerHTML = "Invalid login.";
     }
 }

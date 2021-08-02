@@ -50,11 +50,6 @@ async function updateStatus(){
 
 }
 
-
-
-
-
-
 async function viewByStatus(){
     let newStatusId = document.getElementById("status").value;
     let responseList = await fetch(URL + 'viewStatus/' + newStatusId)
@@ -99,7 +94,7 @@ function fillTable(data){
                     td.innerText=ticket[cell].userName;
                     row.appendChild(td);
                 }else{
-                td.innerText="Waiting Manager";
+                td.innerText="Waiting on Manager";
                 row.appendChild(td);
                 }
             }else if(cell =='status' && ticket[cell]){
