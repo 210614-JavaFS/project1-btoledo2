@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.controllers.EmployeeController;
 import com.revature.controllers.LoginController;
@@ -22,6 +25,9 @@ public class FrontControllerServlet extends HttpServlet {
 	private ManagerController managerController = new ManagerController();
 	private ObjectMapper objectMapper = new ObjectMapper();
 	private static UserService userService = new UserService();
+	private static Logger log = LoggerFactory.getLogger(FrontControllerServlet.class);
+	
+	
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -44,7 +50,7 @@ public class FrontControllerServlet extends HttpServlet {
 		case "userLogin":
 			if (request.getMethod().equals("POST")) {
 				if (loginController.validatLogin(request, response)) {
-					//log.info("Login Seccessful");
+					log.info("Login Seccessful");
 					System.out.println("Check Final set status: " + response.getStatus());
 					System.out.println("User Servlet Login is successful");
 
@@ -64,6 +70,7 @@ public class FrontControllerServlet extends HttpServlet {
 				String json = objectMapper.writeValueAsString(foundUser);
 				response.getWriter().print(json);
 				response.setStatus(201);
+				log.info("User info send to html pages.");
 				break;
 			case "createForm":
 				System.out.println(SectionsEmployee[0]);
@@ -72,7 +79,7 @@ public class FrontControllerServlet extends HttpServlet {
 					String userID1 = session.getAttribute("userID").toString();
 					System.out.println(userID1);
 					if (employeeController.newTicket(request, response)) {
-
+						log.info("Ticket has being created.");
 					}
 				}
 
@@ -80,9 +87,8 @@ public class FrontControllerServlet extends HttpServlet {
 			case "viewForm":
 
 				if (SectionsEmployee.length == 2) {
-					System.out.println("Should be here");
 					if (request.getMethod().equals("GET")) {
-						//log.info("User look at their forms");
+						log.info("User look at their forms");
 						employeeController.getTicketsById(response, SectionsEmployee[1].toLowerCase());
 						System.out.println("Sending Tickets to employee page");
 					}
@@ -91,6 +97,7 @@ public class FrontControllerServlet extends HttpServlet {
 				break;
 			case "logout":
 				session.invalidate();
+				log.info("user logout");
 				break;
 			}
 			
@@ -102,6 +109,7 @@ public class FrontControllerServlet extends HttpServlet {
 				String json = objectMapper.writeValueAsString(foundUser);
 				response.getWriter().print(json);
 				response.setStatus(201);
+				log.info("User has login into manager page.");
 				break;
 			case "viewStatus":
 				if (SectionsManager.length == 2) {
@@ -109,7 +117,8 @@ public class FrontControllerServlet extends HttpServlet {
 					if (request.getMethod().equals("GET")) {
 						//log.info("Manager is Looking a tickets by Status");
 						managerController.getTicketsById(response, SectionsManager[1]);
-						System.out.println("Sending Tickets to employee page");
+						log.info("Sending Tickets to employee page");
+						
 					}
 				}
 				break;
@@ -119,13 +128,17 @@ public class FrontControllerServlet extends HttpServlet {
 					if (request.getMethod().equals("PUT")) {
 						//log.info("Manager is Looking a tickets by Status");
 						managerController.getApproveOrDeny(response, SectionsManager[1], SectionsManager[2], SectionsManager[3]);
-						System.out.println("Ticket Approve or Deny");
+						log.info("Manager is trying to update a ticket.");
 					}
-				}			
+				
+				}
+			case "logout":
+				session.invalidate();
+				log.info("user logout");
+				break;
 			}
 		}
 		
-	//}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {

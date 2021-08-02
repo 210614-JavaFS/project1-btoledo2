@@ -63,11 +63,11 @@ public class  LoginController {
 		password_verified = BCrypt.checkpw(inputPassword, retrievedHash);
 		//inputPassword.equals(retrievedUser.getPassword())
 		if (retrievedUser.getUserName() == null) {
-			System.out.println("Error: Account not found...");
+			System.out.println("Error: Account not found");
 			response.setStatus(404);
 			return false;
 		} else if (retrievedUser.getUserName().equals(inputUserName) && password_verified ) {
-			System.out.println("Login is successful!");
+			System.out.println("Login is successful");
 			if(retrievedUser.getUserRole().getRoleID() == 1) {
 				response.setStatus(201);
 			}else if(retrievedUser.getUserRole().getRoleID() == 2) {
@@ -85,7 +85,7 @@ public class  LoginController {
 			
 			return true;
 		} else {
-			System.out.println("Bad request...");
+			System.out.println("went bad to be here");
 			response.setStatus(501);
 			
 			return false;
