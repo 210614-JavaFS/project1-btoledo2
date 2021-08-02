@@ -24,7 +24,7 @@ public class ConnectionUtil {
 		
 		return DriverManager.getConnection(url, username, password);
 	}
-	
+	// encryption
 //	public static void main(String[] args) {
 //		String password ="password";
 //		int workload = 12;
